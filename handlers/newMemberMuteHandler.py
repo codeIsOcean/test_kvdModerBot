@@ -80,7 +80,7 @@ async def manually_mute_on_approval(event: ChatMemberUpdated):
                     can_invite_users=False,
                     can_pin_messages=False
                 ),
-                until_date=datetime.now() + timedelta(days=366)
+                until_date=datetime.now() + timedelta(days=366 * 10)
             )
 
             await asyncio.sleep(1)

@@ -5,12 +5,15 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 import logging
 
-from config import TOKEN
-from handlers.new_MemberMute import router as member_router
-  # Измененный импорт
+from configs import TOKEN
+from handlers.newMemberMuteHandler import router as member_router
+from handlers.start import start_router
+
+# Измененный импорт
 
 bot = Bot(TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
+dp.include_router(start_router)
 dp.include_router(member_router)
 
 
