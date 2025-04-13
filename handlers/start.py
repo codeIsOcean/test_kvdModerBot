@@ -1,7 +1,7 @@
 from aiogram import Router, F, Bot
 from aiogram.types import Message, CallbackQuery, ChatMemberUpdated
 from aiogram.filters import CommandStart
-from aiogram.enums import ParseMode
+from aiogram.enums import ParseMode, ChatType
 
 from configs import ADMIN_IDS
 from keyboards.main_menu import get_main_menu
@@ -14,6 +14,18 @@ ALOOWED_USERS = ADMIN_IDS
 
 @start_router.message(CommandStart())
 async def cmd_start(message: Message):
+    if message.chat.type in[ChatType.GROUP, ChatType.SUPERGROUP]:
+        if message.from_user.id not in ALOOWED_USERS:
+            await message.answer("⛔️ Я могу работать только в группах, куда меня добавил владелец бота.")
+            return
+
+        await message.answer("✅ Бот добавлен в группу администратором. Работаю! ✅")
+
+# для личного чата
+    if message.from_user.id not in ALOOWED_USERS:
+        await message.answer("⛔️ Бот доступен только для авторизованных пользователей.")
+        return
+
     await message.answer(
         WELCOME_TEXT.format(name=message.from_user.first_name),
         reply_markup=get_main_menu(),
