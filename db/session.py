@@ -1,5 +1,5 @@
 # подключение к БД
-from sqlalchemy.ext.asyncio import create_async_engine, async_session
+from sqlalchemy.ext.asyncio import create_async_engine, async_session, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 from dotenv import load_dotenv
 import os
@@ -12,7 +12,11 @@ DATABASE_URL = (
 )
 
 engine = create_async_engine(DATABASE_URL, echo=True)
-async_session = async_session(engine, expire_on_commit=False)
+async_session = async_sessionmaker(engine, expire_on_commit=False)
+
 
 class Base(DeclarativeBase):
     pass
+
+
+

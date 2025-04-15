@@ -60,7 +60,7 @@ async def on_shutdown(app: web.Application):
     logging.info("❌ Webhook удалён")
 
 
-async def main(port: int = 8000):
+async def main(port: int = 8080):
     app = web.Application()
     SimpleRequestHandler(dispatcher=dp, bot=bot).register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
